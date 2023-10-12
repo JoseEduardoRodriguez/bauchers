@@ -1,0 +1,111 @@
+.cabeza {
+  background: rgba(59, 76, 154, 0.976);
+  min-height: 20vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; /* Ajusta el espacio entre las imágenes según tus preferencias */
+}
+
+.cabeza .tecnm {
+  background: url(tecnm2.png) no-repeat left;
+  background-size: contain;
+}
+
+
+.cabeza .itsjr{
+  background: url(logotec.jpg) no-repeat right;
+  background-size: contain;
+}
+
+.cabeza .titulo{
+  font-family: "Times New Roman";
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 1vh;
+}
+
+.contenido {
+  background: rgb(155, 174, 255);
+  min-height: 20vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px; /* Ajusta el espacio entre las imágenes según tus preferencias */
+}
+
+.usa{
+  background: url(usa.png) no-repeat center;
+  background-size: contain;
+}
+
+.ingla{
+  background: url(ingla.png) no-repeat center;
+  background-size: contain;
+}
+
+
+.cuerpo {
+ /*background: rgba(72, 99, 219, 0.976);*/
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.cuerpo label {
+  display: block;
+}
+
+.cuerpo input[type="text"],
+.cuerpo input[type="time"],
+.cuerpo input[type="date"],
+.cuerpo select {
+  width: 100%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.634);
+}
+
+.cuerpo button {
+  display: block;
+  border-radius: 100px;
+  border-color: transparent;
+  color: white;
+  background-color: rgba(252, 33, 33, 0.643);
+}
+
+.cuerpo button:hover {
+  background: #2079b0;
+  background-image: -webkit-linear-gradient(top, #2079b0, #ef0e0e);
+  background-image: -moz-linear-gradient(top, #2079b0, #ef0e0e);
+  background-image: -ms-linear-gradient(top, #2079b0, #ef0e0e);
+  background-image: -o-linear-gradient(top, #2079b0, #ef0e0e);
+  background-image: linear-gradient(to bottom, #2079b0, #ef0e0e);
+  text-decoration: none;
+}
+
+.cuerpo span {
+  display: block;
+  color: red;
+  font-size: x-medium;
+  background-color: rgba(0, 0, 0, 0.201);
+  border-radius: 100px
+}
+
+.piedepagina {
+  background: rgba(59, 76, 154, 0.976);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 20vh;
+}
+
+.piedepagina .piepagina{
+  font-family: "Times New Roman";
+  font-size:  small;
+  text-align: center;
+  min-height: 20vh;
+}
+
+
