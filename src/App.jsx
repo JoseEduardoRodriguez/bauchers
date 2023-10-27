@@ -274,12 +274,24 @@ function App() {
         <label
           htmlFor="comprobantePago" >Subir comprobante de pago</
         label>
-        <input type="file" accept=".pdf, .png, .jpg, .jpeg" style={{ padding: '4px 0px' }}
+        <input type="file" accept=".png, .jpg, .jpeg" style={{ padding: '4px 0px'}}
           {...register("comprobantePago", {
             required: {
               value: true,
               message: "Es necesario subir el comprobante de pago"
             },
+            validate: {
+              validFileType: (value) => {
+                if (value[0]) {
+                  const allowedExtensions = [".png", ".jpg", ".jpeg"];
+                  const extension = value[0].name.substring(value[0].name.lastIndexOf('.'));
+                  if (!allowedExtensions.includes(extension)) {
+                    return "Es necesario subir un archivo con las extensiones .png, .jpg o .jpeg.";
+                  }
+                }
+                return true;
+              }
+            }
           })} />
         {errors.comprobantePago && <span>{errors.comprobantePago.message}</span>}
 
