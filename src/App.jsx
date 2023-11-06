@@ -1,7 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css';
-import { useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form';
+
 
 function App() {
+  /*FORMULARIO*/
+
   const { register, handleSubmit,
     formState: { errors }
   } = useForm();
@@ -12,9 +15,13 @@ function App() {
     console.log(data)
   })
 
+
   return (
     <div className="cuerpo">
       <form onSubmit={onSubmit}>
+
+        <p>Registra tu comprobante de pago de la inscripción de tu curso</p>
+
 
         {/* nombre */}
         <label
@@ -107,8 +114,7 @@ function App() {
 
         {/* numero de control */}
         <label
-          htmlFor="numeroControl">Número de Control</
-        label>
+          htmlFor="numeroControl">Número de Control</label>
         <input className="form-control" type="text"
           {...register("numeroControl", {
             required: {
@@ -173,8 +179,7 @@ function App() {
 
         {/* fecha de Pago */}
         <label
-          htmlFor="fechaPago">Fecha de Pago</
-        label>
+          htmlFor="fechaPago">Fecha de Pago</label>
         <input className="form-control" type="date"
           {...register("fechaPago", { required: true })} />
         {errors.fechaPago && <span>La fecha de pago es requerido</span>}
@@ -183,8 +188,7 @@ function App() {
 
         {/* hora de Pago */}
         <label
-          htmlFor="horaPago">Hora de Pago</
-        label>
+          htmlFor="horaPago">Hora de Pago</label>
         <input className="form-control" type="time"
           {...register("horaPago", { required: true })} />
         {errors.horaPago && <span>La hora de pago es requerido</span>}
@@ -192,8 +196,7 @@ function App() {
 
         {/* guia CIE */}
         <label
-          htmlFor="guiaCIE">Guía CIE</
-        label>
+          htmlFor="guiaCIE">Guía CIE</label>
         <input className="form-control" type="text"
           {...register("guiaCIE", {
             required: {
@@ -219,8 +222,7 @@ function App() {
 
         {/* Referencia */}
         <label
-          htmlFor="referencia">Referencia</
-        label>
+          htmlFor="referencia">Referencia</label>
         <input className="form-control" type="text"
           {...register("referencia", {
             required: {
@@ -234,8 +236,7 @@ function App() {
 
         {/* Numero de convenio */}
         <label
-          htmlFor="numeroConvenio">Numero de Convenio</
-        label>
+          htmlFor="numeroConvenio">Numero de Convenio</label>
         <input className="form-control" type="text"
           {...register("numeroConvenio", {
             required: {
@@ -253,8 +254,7 @@ function App() {
 
         {/* Monto Pagado */}
         <label
-          htmlFor="montoPagado">Monto Pagado</
-        label>
+          htmlFor="montoPagado">Monto Pagado</label>
         <input className="form-control" type="text"
           {...register("montoPagado", {
             required: {
@@ -272,9 +272,8 @@ function App() {
 
         {/* Foto */}
         <label
-          htmlFor="comprobantePago" >Subir comprobante de pago</
-        label>
-        <input type="file" accept=".png, .jpg, .jpeg" style={{ padding: '4px 0px'}}
+          htmlFor="comprobantePago">Subir comprobante de pago</label>
+        <input type="file" accept=".png, .jpg, .jpeg" style={{ padding: '4px 0px' }}
           {...register("comprobantePago", {
             required: {
               value: true,

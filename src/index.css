@@ -20,12 +20,13 @@
 .cabeza .titulo{
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   text-align: center;
+  font-weight: bold;
   color: white;
   display: flex;
 }
 
 .contenido {
-  background: rgb(185, 198, 255);
+  background: rgb(93, 95, 104);
   min-height: 20vh;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -33,13 +34,13 @@
 }
 
 .usa{
-  background: url(usa.png) no-repeat center;
-  background-size: contain;
+  background: url(right.png) no-repeat center;
+  background-size: cover;
 }
 
 .ingla{
-  background: url(ingla.png) no-repeat center;
-  background-size: contain;
+  background: url(left.png) no-repeat center;
+  background-size: cover;
 }
 
 
@@ -93,17 +94,74 @@
 .piedepagina {
   background: rgba(73, 87, 154, 0.976);
   color: white;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; 
   justify-content: center;
   align-items: center;
-  min-height: 20vh;
+ 
 }
 
-.piedepagina .piepagina{
+.piedepagina .piepag{
   font-family: "Times New Roman";
-  font-size:  small;
+  font-size:  medium;
   text-align: center;
-  min-height: 20vh;
+  
 }
 
+.wrapper .title{
+  color:white;
+  font-size: 25px;
+  text-align: center;
+}
+
+/*.wrapper dl{
+  -moz-box-shadow: 0px 0px 10px #000000;
+  -webkit-box-shadow: 0px 0px 10px #000000;
+  box-shadow: 0px 0px 10px #000000;
+  position: relative;
+}*/
+
+.wrapper dt{
+  background: rgba(73, 87, 154, 0.976)4;
+  border-bottom: 1px solid #c5c5c5;
+  border-top: 1px solid white;
+  cursor: pointer;
+  font-size: 1em;
+  font-weight: bold;
+  line-height: 2em;
+  position:relative;
+  z-index: 1;
+}
+
+dt:hover + dd{
+  color: blue;
+  position: static;
+  height: auto;
+  padding: 1em 0;
+  transition: all 0.5s;
+}
+
+dt:first-child{
+  border-top: none; 
+}
+
+dt:nth-last-child(2){
+  border-bottom: none;
+}
+
+dd{
+  background: white;
+  border-bottom: 1px solid #c5c5c5;
+  margin: 0px;
+  padding: 0px; 
+  height:0;
+  z-index: -1;
+  top: 0;
+  position: absolute;
+}
+
+.hide{
+  display: none;
+}
 
