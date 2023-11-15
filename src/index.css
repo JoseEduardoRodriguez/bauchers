@@ -122,19 +122,19 @@
   position: relative;
 }*/
 
-.wrapper dt{
-  background: rgba(73, 87, 154, 0.976)4;
+ .wrapper dt {
+  background: rgba(73, 87, 154, 0.976);
   border-bottom: 1px solid #c5c5c5;
   border-top: 1px solid white;
   cursor: pointer;
   font-size: 1em;
   font-weight: bold;
   line-height: 2em;
-  position:relative;
+  position: relative;
   z-index: 1;
 }
 
-dt:hover + dd{
+dt.active + dd {
   color: blue;
   position: static;
   height: auto;
@@ -142,26 +142,27 @@ dt:hover + dd{
   transition: all 0.5s;
 }
 
-dt:first-child{
-  border-top: none; 
+dt:first-child {
+  border-top: none;
 }
 
-dt:nth-last-child(2){
+dt:nth-last-child(2) {
   border-bottom: none;
 }
 
-dd{
+dd {
   background: white;
   border-bottom: 1px solid #c5c5c5;
   margin: 0px;
-  padding: 0px; 
-  height:0;
+  padding: 0px;
+  height: 0;
   z-index: -1;
   top: 0;
   position: absolute;
 }
 
-.hide{
+.hide {
   display: none;
 }
+
 
