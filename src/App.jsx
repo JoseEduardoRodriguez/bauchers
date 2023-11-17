@@ -24,11 +24,6 @@ function App() {
   return (
       <div className="cuerpo">
         <form onSubmit={handleSubmit(onSubmit)}>
-          {isFormSubmitted && (
-            <div className="alert alert-success" role="alert">
-              Formulario enviado correctamente.
-            </div>
-          )}
 
           <p>Registra tu comprobante de pago de la inscripción de tu curso</p>
 
@@ -310,6 +305,13 @@ function App() {
               Enviar
             </button>
           </div>
+
+          {isFormSubmitted && (
+            <div className="alert alert-success" role="alert">
+              Formulario enviado correctamente.
+            </div>
+          )}
+
         </form>
       </div>
   )
