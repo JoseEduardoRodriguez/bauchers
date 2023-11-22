@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useForm } from 'react-hook-form';
-
+import { uploadFile } from './firebase/config';
 
 function App() {
   /*FORMULARIO*/
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [isFormSubmitted, setFormSubmitted] = useState(false); 
+  const [recibo, setRecibo] = useState(true);
 
   const onSubmit = async (data) => {
     console.log(data);
     // Puedes realizar acciones adicionales aquí si es necesario
     setFormSubmitted(true);
+
+
 
     // Espera unos segundos antes de reiniciar el formulario y ocultar el mensaje
     setTimeout(() => {
@@ -278,7 +281,7 @@ function App() {
           {/* Foto */}
           <label
             htmlFor="comprobantePago">Subir comprobante de pago</label>
-          <input type="file" accept=".png, .jpg, .jpeg" style={{ padding: '4px 0px' }}
+          <input type="file" accept=".png, .jpg, .jpeg" style={{ padding: '4px 0px' }} onChange={e => uploadFile(e.target.values[0])}
             {...register("comprobantePago", {
               required: {
                 value: true,
