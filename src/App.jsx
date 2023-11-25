@@ -1,27 +1,51 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import { useForm } from 'react-hook-form';
-import { uploadFile } from './firebase/config';
+import { db, storage } from './firebase/config';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
+import { ref, uploadBytes } from 'firebase/storage';
+import {v4} from 'uuid';
 
 function App() {
   /*FORMULARIO*/
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [isFormSubmitted, setFormSubmitted] = useState(false); 
-  const [recibo, setRecibo] = useState(true);
+  const [alumnos, setAlumnos] = useState([]);
+  const alumnosCollectionRef = collection(db, 'alumnos');
+  const handleUploadImage = async (image) => {
+    const newImageName = ""+v4();
+    try {
+      const storageRef = ref(storage);
+      const pathRef = ref(storageRef, 'comprobantes');
+      const imageRef = ref(pathRef, newImageName);
+      uploadBytes(imageRef, image).then((snapshot) => {
+        console.log("Uploaded a blob or file");
+      })
+    } catch (error) {
+        console.log("No se subio la imagen papu");
+    }
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      handleUploadImage(file);
+    }
+  };
+  const getAlumnos = async () => {
+    const data = await getDocs(alumnosCollectionRef);
+    setAlumnos(data.docs.map((doc)=>({...doc.data(), id: doc.id})));
+    console.log(alumnos);
+  };
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // Puedes realizar acciones adicionales aquí si es necesario
-    setFormSubmitted(true);
-
-
-
-    // Espera unos segundos antes de reiniciar el formulario y ocultar el mensaje
-    setTimeout(() => {
-      setFormSubmitted(false);
-      reset();
-    }, 3000);
+    try {
+      const docRef = await addDoc(alumnosCollectionRef, data);
+      reset()
+      getAlumnos();
+    } catch(error){
+      console.error("No se subio el alumno papu >:c");
+    }
   };
 
   return (
@@ -278,29 +302,7 @@ function App() {
 
 
 
-          {/* Foto */}
-          <label
-            htmlFor="comprobantePago">Subir comprobante de pago</label>
-          <input type="file" accept=".png, .jpg, .jpeg" style={{ padding: '4px 0px' }} onChange={e => uploadFile(e.target.values[0])}
-            {...register("comprobantePago", {
-              required: {
-                value: true,
-                message: "Es necesario subir el comprobante de pago"
-              },
-              validate: {
-                validFileType: (value) => {
-                  if (value[0]) {
-                    const allowedExtensions = [".png", ".jpg", ".jpeg"];
-                    const extension = value[0].name.substring(value[0].name.lastIndexOf('.'));
-                    if (!allowedExtensions.includes(extension)) {
-                      return "Es necesario subir un archivo con las extensiones .png, .jpg o .jpeg.";
-                    }
-                  }
-                  return true;
-                }
-              }
-            })} />
-          {errors.comprobantePago && <span>{errors.comprobantePago.message}</span>}
+          <input type="file"  style={{ padding: '4px 0px' }} onChange={handleImageChange}/>
 
 
           <div className="row" style={{ padding: '4px 0px' }}>
