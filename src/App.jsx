@@ -12,26 +12,31 @@ function App() {
   const { register, handleSubmit, reset, formState: { errors } } = useForm();
   const [isFormSubmitted, setFormSubmitted] = useState(false); 
   const [alumnos, setAlumnos] = useState([]);
+  const [selectedImageFile, setSelectedImageFile] = useState(null);
   const alumnosCollectionRef = collection(db, 'alumnos');
-  const handleUploadImage = async (image) => {
-    const newImageName = ""+v4();
-    try {
-      const storageRef = ref(storage);
-      const pathRef = ref(storageRef, 'comprobantes');
-      const imageRef = ref(pathRef, newImageName);
-      uploadBytes(imageRef, image).then((snapshot) => {
-        console.log("Uploaded a blob or file");
-      })
-    } catch (error) {
-        console.log("No se subio la imagen papu");
-    }
-  };
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      handleUploadImage(file);
+      setSelectedImageFile(file);
     }
   };
+
+  const handleUploadImage = async () => {
+    if (selectedImageFile) {
+      const newImageName = "" + selectedImageFile.name + v4();
+      try {
+        const storageRef = ref(storage);
+        const pathRef = ref(storageRef, 'comprobantes');
+        const imageRef = ref(pathRef, newImageName);
+        await uploadBytes(imageRef, selectedImageFile);
+        console.log("Uploaded a blob or file");
+      } catch (error) {
+        console.error("No se subió la imagen papu");
+      }
+    }
+  };
+  
   const getAlumnos = async () => {
     const data = await getDocs(alumnosCollectionRef);
     setAlumnos(data.docs.map((doc)=>({...doc.data(), id: doc.id})));
@@ -40,6 +45,7 @@ function App() {
 
   const onSubmit = async (data) => {
     try {
+      await handleUploadImage();
       const docRef = await addDoc(alumnosCollectionRef, data);
       reset()
       getAlumnos();
@@ -301,8 +307,10 @@ function App() {
           {errors.montoPagado && <span>{errors.montoPagado.message}</span>}
 
 
-
-          <input type="file"  style={{ padding: '4px 0px' }} onChange={handleImageChange}/>
+          {/* Foto */}
+          <label
+            htmlFor="comprobantePago">Subir comprobante de pago en formato de imagen</label>
+          <input type="file"  accept=".png, .jpg, .jpeg" style={{ padding: '4px 0px' }} onChange={handleImageChange}/>
 
 
           <div className="row" style={{ padding: '4px 0px' }}>
