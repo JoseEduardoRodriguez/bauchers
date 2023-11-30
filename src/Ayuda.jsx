@@ -16,6 +16,7 @@ function Ayuda() {
 
         <dl>
           {[
+            { label: "Nombre de la imagen del comprobante    +", content: "La imagen del conprobante de pago debe de llevar tu número de control. Si eres estudiante externo debe de llevar tu nombre completo." },
             { label: "Número de Control    +", content: "Si eres estudiante externo teclea 8 veces '1'" },
             { label: "Guía CIE    +", content: "Si en tu recibo la Guía CIE comienza con varios ceros, ignora los primeros tres ceros" },
             { label: "Referencia    +", content: "Ingresa la Referencia que ingresaste al realizar el pago" },
