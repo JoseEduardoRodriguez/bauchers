@@ -49,35 +49,44 @@ function App() {
     // Reiniciar mensajes de error
     setFileError("");
     setFormatError("");
-    // Validar que se haya seleccionado un archivo
-    if (!selectedImageFile) {
-      setFileError("Debes adjuntar un archivo.");
-      return;
-    }
-
-    // Validar que el archivo sea una imagen (formatos permitidos: jpg, png, jpeg)
-    const allowedFormats = ["jpg", "png", "jpeg"];
-    const fileExtension = selectedImageFile.name.split(".").pop().toLowerCase();
-    if (!allowedFormats.includes(fileExtension)) {
-      setFormatError("El archivo debe ser una imagen (jpg, png, jpeg).");
-      return;
-    }
-
-    setFormSubmitted(true);
     try {
-      await handleUploadImage();
-      const docRef = await addDoc(alumnosCollectionRef, data);
-      reset()
-      getAlumnos();
-    } catch (error) {
-      console.error("No se subio el alumno", error);
-    }
+      // Validar que se haya seleccionado un archivo
+      if (!selectedImageFile) {
+        setFileError("Debes adjuntar un archivo.");
+        return;
+      }
 
-    // Espera unos segundos antes de reiniciar el formulario y ocultar el mensaje
-    setTimeout(() => {
-      setFormSubmitted(false);
+      // Validar que el archivo sea una imagen (formatos permitidos: jpg, png, jpeg)
+      const allowedFormats = ["jpg", "png", "jpeg"];
+      const fileExtension = selectedImageFile.name.split(".").pop().toLowerCase();
+      if (!allowedFormats.includes(fileExtension)) {
+        setFormatError("El archivo debe ser una imagen (jpg, png, jpeg).");
+        return;
+      }
+
+      await handleUploadImage();
+
+      // Si la imagen se sube correctamente, entonces guarda los datos en la base de datos
+      const docRef = await addDoc(alumnosCollectionRef, data);
       reset();
-    }, 3000);
+      getAlumnos();
+
+      // Muestra el mensaje de éxito solo si la base de datos se actualiza correctamente
+      setFormSubmitted(true);
+
+      // Espera unos segundos antes de reiniciar el formulario y ocultar el mensaje
+      setTimeout(() => {
+        setFormSubmitted(false);
+        reset();
+      }, 3000);
+
+    } catch (error) {
+      console.error("Error al enviar el registro. Intentalo de nuevo.", error);
+      // Muestra el mensaje de error al usuario
+      setFormSubmitted(false);
+      // Puedes personalizar este mensaje según tus necesidades
+      alert("Error al enviar el registro. Inténtalo de nuevo.");
+    }
   };
 
   return (
